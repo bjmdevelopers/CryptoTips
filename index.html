@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Open-Source Development</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --highlight: #f0f9ff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            margin: 0;
+            padding: 20px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 640px;
+            margin: 40px auto;
+            background: var(--card);
+            padding: 40px 32px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        h1 {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--primary);
+            font-size: 2.2em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 36px;
+            font-weight: 400;
+            font-size: 1.1em;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .payment-option {
+            margin-bottom: 24px;
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            border: 1px solid var(--border);
+        }
+        
+        .payment-option:hover {
+            background: var(--highlight);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+        }
+        
+        .payment-title {
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .payment-title::before {
+            content: "•";
+            color: var(--primary);
+            margin-right: 8px;
+            font-size: 1.4em;
+        }
+        
+        .note {
+            font-size: 0.95em;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            font-style: italic;
+            padding-left: 16px;
+            border-left: 2px solid var(--border);
+        }
+        
+        .address-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 8px;
+        }
+        
+        .address-box code {
+            flex: 1;
+            font-size: 0.95em;
+            color: var(--text);
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            word-break: break-all;
+        }
+        
+        .copy-btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-left: 12px;
+            transition: all 0.2s;
+            font-size: 0.95em;
+        }
+        
+        .copy-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+        
+        .copy-btn.copied {
+            background: var(--success);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(3px);
+        }
+        
+        .modal.show {
+            display: flex;
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal-content {
+            background: var(--card);
+            padding: 32px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+            max-width: 320px;
+            position: relative;
+        }
+        
+        .modal-content h2 {
+            color: var(--success);
+            margin-bottom: 12px;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        
+        .close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-size: 24px;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px 16px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .subtitle {
+                max-width: 100%;
+                font-size: 1em;
+            }
+            
+            .payment-option {
+                padding: 16px;
+            }
+            
+            .address-box {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .copy-btn {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Together We Stay Uncensored</h1>
+        <p class="subtitle">Your tip strengthens our independence and protects free access for everyone</p>
+        
+        <div class="payment-option">
+            <div class="payment-title">Bitcoin (BTC)</div>
+            <div class="note">Native SegWit (bech32) - Starts with bc1, lowest fees</div>
+            <div class="address-box">
+                <code id="btc-address">bc1qgsxm50w9mpc7a6hgtfmcgp8j0ljtglsdr37h6s</code>
+                <button class="copy-btn" data-address="btc-address">Copy Address</button>
+            </div>
+        </div>
+        
+        <div class="payment-option">
+            <div class="payment-title">Ethereum (ETH)</div>
+            <div class="note">ERC20 - 42-character 0x address (case-sensitive)</div>
+            <div class="address-box">
+                <code id="eth-address">0x5f897aF680878D48eC9d4e98d2218fDF2f11cAfB</code>
+                <button class="copy-btn" data-address="eth-address">Copy Address</button>
+            </div>
+        </div>
+        
+        <div class="payment-option">
+            <div class="payment-title">Tether (USDT)</div>
+            <div class="note">TRC20 - Tron address starting with T (case-sensitive)</div>
+            <div class="address-box">
+                <code id="usdt-trc20-address">TNPMuHqv7EmPFky3AoJ5ZKkuPZ8FMANkdR</code>
+                <button class="copy-btn" data-address="usdt-trc20-address">Copy Address</button>
+            </div>
+        </div>
+        
+        <div class="payment-option">
+            <div class="payment-title">Tether (USDT)</div>
+            <div class="note">ERC20 - Use same Ethereum 0x address above</div>
+            <div class="address-box">
+                <code id="usdt-erc20-address">0x5f897aF680878D48eC9d4e98d2218fDF2f11cAfB</code>
+                <button class="copy-btn" data-address="usdt-erc20-address">Copy Address</button>
+            </div>
+        </div>
+        
+        <div class="payment-option">
+            <div class="payment-title">Binance Coin (BNB)</div>
+            <div class="note">BEP20 - Same format as Ethereum 0x addresses</div>
+            <div class="address-box">
+                <code id="bnb-bep20-address">0x5f897aF680878D48eC9d4e98d2218fDF2f11cAfB</code>
+                <button class="copy-btn" data-address="bnb-bep20-address">Copy Address</button>
+            </div>
+        </div>
+        
+        <div class="payment-option">
+            <div class="payment-title">Solana (SOL)</div>
+            <div class="note">Native - 44-character base58 address (case-sensitive)</div>
+            <div class="address-box">
+                <code id="sol-address">8bqKAiKa95W57sXwDEdnGCUTcFESvg4J52inWsqgwMDH</code>
+                <button class="copy-btn" data-address="sol-address">Copy Address</button>
+            </div>
+        </div>
+        
+        <div class="payment-option">
+            <div class="payment-title">USD Coin (USDC)</div>
+            <div class="note">ERC20 network - stablecoin pegged to the US Dollar</div>
+            <div class="address-box">
+                <code id="usdc-erc20-address">0x5f897aF680878D48eC9d4e98d2218fDF2f11cAfB</code>
+                <button class="copy-btn" data-address="usdc-erc20-address">Copy Address</button>
+            </div>
+        </div>
+        
+        <div class="payment-option">
+            <div class="payment-title">Dogecoin (DOGE)</div>
+            <div class="note">Legacy - Starts with D, 34-character base58</div>
+            <div class="address-box">
+                <code id="doge-address">DHgHhhYtVCQHyv44KGLw1ByK2tCj3S3vHZ</code>
+                <button class="copy-btn" data-address="doge-address">Copy Address</button>
+            </div>
+        </div>
+        
+        <div class="payment-option">
+            <div class="payment-title">Toncoin (TON)</div>
+              <div class="note">Modern - Starts with UQ, case-sensitive 48-character</div>
+            <div class="address-box">
+                <code id="ton-address">UQD-gQpLEC2gdkrNspQLKdqNAv4rc89OfSwtGnTeA-AHQrdr</code>
+                <button class="copy-btn" data-address="ton-address">Copy Address</button>
+            </div>
+        </div>
+        
+        <div class="payment-option">
+            <div class="payment-title">TRON (TRX)</div>
+            <div class="note">Native TRX - Base58 address starting with T (case-sensitive)</div>
+            <div class="address-box">
+                <code id="trx-address">TNPMuHqv7EmPFky3AoJ5ZKkuPZ8FMANkdR</code>
+                <button class="copy-btn" data-address="trx-address">Copy Address</button>
+            </div>
+        </div>
+        
+        <div class="payment-option">
+            <div class="payment-title">Shiba Inu (SHIB)</div>
+            <div class="note">ERC20 network - Ethereum-based token</div>
+            <div class="address-box">
+                <code id="shib-address">0x5f897aF680878D48eC9d4e98d2218fDF2f11cAfB</code>
+                <button class="copy-btn" data-address="shib-address">Copy Address</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h2>Thanks for The Tip</h2>
+            <div style="color:var(--text-light);">Address Copied</div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const copyBtns = document.querySelectorAll(".copy-btn");
+            const modal = document.getElementById("modal");
+            
+            copyBtns.forEach(btn => {
+                btn.addEventListener("click", async () => {
+                    const addressId = btn.getAttribute("data-address");
+                    const addressElement = document.getElementById(addressId);
+                    const addressToCopy = addressElement.textContent.trim();
+                    
+                    try {
+                        await navigator.clipboard.writeText(addressToCopy);
+                        btn.classList.add("copied");
+                        btn.textContent = "Copied!";
+                        modal.classList.add("show");
+                        
+                        setTimeout(() => {
+                            btn.classList.remove("copied");
+                            btn.textContent = "Copy Address";
+                            modal.classList.remove("show");
+                        }, 2000);
+                    } catch (err) {
+                        alert('Failed to copy. Please copy the address manually: ' + addressToCopy);
+                    }
+                });
+            });
+            
+            // Hide modal on click anywhere
+            modal.addEventListener("click", () => {
+                modal.classList.remove("show");
+            });
+        });
+    </script>
+</body>
+</html>
